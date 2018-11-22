@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { StyleSheet, StatusBar } from "react-native";
 import {GameEngine } from "react-native-game-engine";
 //import { LevelOne } from "./src/entities/level";
-import { MoveSpaceship, Physics } from "./src/systems/systems"
+import { MoveSpaceship, Physics, Shooter } from "./src/systems/systems"
 import { Finger } from "./src/components/finger"
 import { LevelOne } from "./src/entities/level";
 
@@ -17,9 +17,9 @@ export default class App extends PureComponent {
       <GameEngine
         ref={"engine"}
         style={styles.game}
-        systems={[MoveSpaceship]}
+        systems={[MoveSpaceship, Physics, Shooter]}
         entities={LevelOne()}
-        
+
       >
         <StatusBar hidden={true} />
 

@@ -1,9 +1,8 @@
 import React, {PureComponent, View} from "react";
 import {StyleSheet, Image} from "react-native";
 import Matter from "matter-js";
-import {Shot} from "./shot";
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import spaceshipImg from "./spaceship_1.png";
+import shot_1 from "./shot_1.png";
 
 export class Renderer extends PureComponent {
     render() {
@@ -18,7 +17,7 @@ export class Renderer extends PureComponent {
             <Image
                 source={source}
                 style={[
-                    styles.spaceship, 
+                    styles.shot, 
                     {
                         left: x,
                         top: y,
@@ -36,9 +35,9 @@ export class Renderer extends PureComponent {
 }
 
 
-export const Spaceship = (world, pos) => {
-    let width = 100;
-    let height = 100;
+export const Shot = (world, pos, velocity) => {
+    let width = 20;
+    let height = 20;
 
     let body = Matter.Bodies.rectangle(pos.x, pos.y, width, height);
 
@@ -46,14 +45,8 @@ export const Spaceship = (world, pos) => {
     
     return {
         body,
-        shoot: (type) => {
-            switch (type) {
-                case 0:
-                    return Shot(world, {x: body.position.x, y: body.position.y}, [0, -0.5]);
-                    break;
-            }
-        },
         size: {width, height},
+        velocity: velocity, 
         controls: {
             gestures: {},
             mode: "platform"
@@ -64,7 +57,7 @@ export const Spaceship = (world, pos) => {
         },
         action: "idling",
         actions: {
-            idling: resolveAssetSource(spaceshipImg)
+            idling: resolveAssetSource(shot_1)
         },
         "power-ups": {},
         animations: {},
@@ -73,7 +66,7 @@ export const Spaceship = (world, pos) => {
 };
 
 const styles = StyleSheet.create({
-    spaceship: {
+    shot: {
         position: "absolute"
     }
 });

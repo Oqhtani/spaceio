@@ -1,4 +1,9 @@
 import Matter from "matter-js";
+import {Shoot} from "../entities/level";
+import { Dimensions } from "react-native";
+
+
+var timer = 0;
 
 const MoveSpaceship = (entities, { touches }) => {
 
@@ -14,17 +19,44 @@ const MoveSpaceship = (entities, { touches }) => {
             ship.body.position.x = t.event.pageX;
             ship.body.position.y = t.event.pageY;
             ship.body = {...ship.body};
+            //console.log("x: " + ship.body.position.x + " y: " + ship.body.position.y);
       }
     });
   
     return entities;
 };
 
+const Shooter = (entities, { time }) => {
+    timer += time.delta;
+    if (timer >= 300) {
+        timer = 0;
+        //console.log(time.current + "A second has passed")
+        let name = "shot_" + time.current;
+        //console.log(name);
+        entities[name] = entities["spaceship_1"].shoot(0);
+    }
+    return entities
+};
 
 const Physics = (entities, { time }) => {
-    let engine = entities["physics"].engine;
-    Matter.Engine.update(engine, time.delta);
+    const { width, height } = Dimensions.get("window");
+    //let engine = entities["physics"].engine;
+    //Matter.Engine.update(engine, time.delta);
+    Object.keys(entities).forEach(entity => {
+        let shot = entities[entity];
+        if (shot.velocity != undefined) {
+            shot.body.position.x += shot.velocity[0] * time.delta;
+            shot.body.position.y += shot.velocity[1] * time.delta;
+            shot.body = {...shot.body};
+            if (shot.body.position.y < 0 || shot.body.position.y > height ||
+                shot.body.position.x < 0 || shot.body.position.x > width) {
+                delete entities[entity];
+            }
+        }   
+    });
+    //delete entities["shots"];
+
     return entities;
 };
   
-  export { MoveSpaceship, Physics};
+  export { MoveSpaceship, Physics, Shooter};
