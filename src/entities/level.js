@@ -17,9 +17,8 @@ export const LevelOne = () => {
 
     world.gravity = {x: 0, y: 0};
 
-    
     return {
         physics: {engine: engine, world: world},
-        spaceship: Spaceship(world, {x: cx, y: offsetY + 465 - 20 / 2 - 20}),
+        spaceship_1: Spaceship(world, {x: cx, y: offsetY + 465 - 20 / 2 - 20}),
     };
 };
