@@ -36,7 +36,7 @@ export class Renderer extends PureComponent {
 }
 
 
-export const Spaceship = (world, pos) => {
+export default Spaceship = (world, pos) => {
     let width = 100;
     let height = 100;
 
@@ -64,13 +64,17 @@ export const Spaceship = (world, pos) => {
         },
         action: "idling",
         actions: {
-            idling: resolveAssetSource(spaceshipImg)
+            idling: resolveAssetSource(spaceshipImg),
+            zooming: resolveAssetSource(spaceshipImg)
         },
         "power-ups": {},
         animations: {},
         renderer: <Renderer />
     };
 };
+
+/*
+<renderer body={body}, shoot={shoot}... />
 
 const styles = StyleSheet.create({
     spaceship: {

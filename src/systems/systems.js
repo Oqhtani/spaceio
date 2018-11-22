@@ -1,6 +1,7 @@
 import Matter from "matter-js";
 import {Shoot} from "../entities/level";
 import { Dimensions } from "react-native";
+import { Shot } from "../components/shot";
 
 
 var timer = 0;
@@ -31,11 +32,13 @@ const Shooter = (entities, { time }) => {
     if (timer >= 300) {
         timer = 0;
         //console.log(time.current + "A second has passed")
-        let name = "shot_" + time.current;
         //console.log(name);
-        entities[name] = entities["spaceship_1"].shoot(0);
+        let spaceship = entities["spaceship_1"];
+        entities["shot1_" + time.current] = Shot(entities["physics"].world, {x: spaceship.body.position.x, y: spaceship.body.position.y}, [0, -.6]);
+        entities["shot2_" + time.current] = Shot(entities["physics"].world, {x: spaceship.body.position.x, y: spaceship.body.position.y}, [0.3, -.6]);
+        entities["shot3_" + time.current] = Shot(entities["physics"].world, {x: spaceship.body.position.x, y: spaceship.body.position.y}, [-0.3, -.6]);
     }
-    return entities
+    return entities;
 };
 
 const Physics = (entities, { time }) => {

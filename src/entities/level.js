@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import Matter from "matter-js";
-import {Spaceship} from "../components/spaceship";
+import Spaceship from "../components/spaceship";
 import {Shot} from "../components/shot";
 
 
